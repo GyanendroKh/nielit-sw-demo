@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export function PlanetList() {
   const [planets, setPlanets] = useState([]);
@@ -18,14 +19,13 @@ export function PlanetList() {
   return (
     <ol>
       {planets.map(p => {
-        console.log(p.url);
         const id = p.url
           .replace('https://swapi.dev/api/planets/', '')
           .replace('/', '');
 
         return (
           <li key={id}>
-            <a href={`#planets?id=${id}`}>{p.name}</a>
+            <Link to={`/planets/${id}`}>{p.name}</Link>
           </li>
         );
       })}

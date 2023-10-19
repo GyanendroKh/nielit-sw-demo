@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-export function Planet(props) {
+export function Planet() {
   const [data, setData] = useState();
+  const params = useParams();
 
   useEffect(() => {
-    fetch(`https://swapi.dev/api/planets/${props.id}/`)
+    fetch(`https://swapi.dev/api/planets/${params.id}/`)
       .then(res => res.json())
       .then(res => {
         setData(res);

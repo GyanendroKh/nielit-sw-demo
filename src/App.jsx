@@ -1,36 +1,32 @@
-import { useEffect, useState } from 'react';
+import { RouterProvider, createBrowserRouter, Link } from 'react-router-dom';
 import { PlanetList } from './PlanetList';
 import { Planet } from './Planet';
 
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <ResourseList />
+  },
+  {
+    path: '/planets',
+    element: <PlanetList />
+  },
+  {
+    path: '/planets/:id',
+    element: <Planet />
+  }
+]);
+
 export default function App() {
-  const [url, setUrl] = useState(window.location.hash.substring(1));
+  return <RouterProvider router={router} />;
+}
 
-  useEffect(() => {
-    window.addEventListener('hashchange', e => {
-      const url = new URL(e.newURL);
-
-      setUrl(url.hash.substring(1));
-    });
-  }, []);
-
-  if (url === '') {
-    return (
-      <>
-        <a href="#planets">Planets</a>
-      </>
-    );
-  }
-
-  if (url.startsWith('planets')) {
-    const url2 = new URL(url, 'http://localhost');
-    const id = url2.searchParams.get('id');
-
-    if (id) {
-      return <Planet id={id} />;
-    }
-
-    return <PlanetList />;
-  }
-
-  return null;
+function ResourseList() {
+  return (
+    <ul>
+      <li>
+        <Link to="/planets">Planets</Link>
+      </li>
+    </ul>
+  );
 }
