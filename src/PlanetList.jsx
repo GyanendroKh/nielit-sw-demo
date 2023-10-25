@@ -1,24 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, useLoaderData } from 'react-router-dom';
 
 export function PlanetList() {
-  const [planets, setPlanets] = useState([]);
-
-  useEffect(() => {
-    fetch('https://swapi.dev/api/planets/')
-      .then(res => res.json())
-      .then(data => {
-        setPlanets(data.results);
-      })
-      .catch(err => {
-        console.error(err);
-        alert('Error Occurred');
-      });
-  }, []);
+  const planets = useLoaderData();
 
   return (
     <ol>
-      {planets.map(p => {
+      {planets.results.map(p => {
         const id = p.url
           .replace('https://swapi.dev/api/planets/', '')
           .replace('/', '');

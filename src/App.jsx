@@ -9,7 +9,8 @@ const router = createBrowserRouter([
   },
   {
     path: '/planets',
-    element: <PlanetList />
+    element: <PlanetList />,
+    loader: planetListLoader
   },
   {
     path: '/planets/:id',
@@ -29,4 +30,8 @@ function ResourseList() {
       </li>
     </ul>
   );
+}
+
+function planetListLoader() {
+  return fetch('https://swapi.dev/api/planets/').then(res => res.json());
 }
