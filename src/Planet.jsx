@@ -1,21 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLoaderData, useParams } from 'react-router-dom';
 
 export function Planet() {
-  const [data, setData] = useState();
-  const params = useParams();
-
-  useEffect(() => {
-    fetch(`https://swapi.dev/api/planets/${params.id}/`)
-      .then(res => res.json())
-      .then(res => {
-        setData(res);
-      })
-      .catch(err => {
-        console.error(err);
-        alert('Error Occurred');
-      });
-  }, []);
+  const data = useLoaderData();
 
   if (!data) {
     return null;

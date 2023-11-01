@@ -14,7 +14,8 @@ const router = createBrowserRouter([
   },
   {
     path: '/planets/:id',
-    element: <Planet />
+    element: <Planet />,
+    loader: planetIdLoader
   }
 ]);
 
@@ -34,4 +35,10 @@ function ResourseList() {
 
 function planetListLoader() {
   return fetch('https://swapi.dev/api/planets/').then(res => res.json());
+}
+
+function planetIdLoader({ params }) {
+  return fetch(`https://swapi.dev/api/planets/${params.id}/`).then(res =>
+    res.json()
+  );
 }
