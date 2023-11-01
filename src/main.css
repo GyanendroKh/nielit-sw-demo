@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #31315b;
+  color: white;
+}
+
+.root-container {
+  flex: 1;
+  display: flex;
+}
+
+.sidebar {
+  flex: 0.3;
+  background-color: green;
+  padding: 10px;
+}
+
+.main-content {
+  flex: 0.7;
+  background-color: blue;
+  padding: 10px;
+}

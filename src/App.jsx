@@ -1,36 +1,40 @@
-import { RouterProvider, createBrowserRouter, Link } from 'react-router-dom';
+import {
+  RouterProvider,
+  createBrowserRouter,
+  Link,
+  Outlet
+} from 'react-router-dom';
 import { PlanetList } from './PlanetList';
 import { Planet } from './Planet';
+import { RootPage } from './RootPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <ResourseList />
-  },
-  {
-    path: '/planets',
-    element: <PlanetList />,
-    loader: planetListLoader
-  },
-  {
-    path: '/planets/:id',
-    element: <Planet />,
-    loader: planetIdLoader
+    element: <RootPage />,
+    children: [
+      {
+        path: 'planets',
+        element: <Outlet />,
+        children: [
+          {
+            index: true,
+            element: <PlanetList />,
+            loader: planetListLoader
+          },
+          {
+            path: ':id',
+            element: <Planet />,
+            loader: planetIdLoader
+          }
+        ]
+      }
+    ]
   }
 ]);
 
 export default function App() {
   return <RouterProvider router={router} />;
-}
-
-function ResourseList() {
-  return (
-    <ul>
-      <li>
-        <Link to="/planets">Planets</Link>
-      </li>
-    </ul>
-  );
 }
 
 function planetListLoader() {
