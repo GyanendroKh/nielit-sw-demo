@@ -13,6 +13,10 @@ export const RootPage = () => {
             <li>
               <Link to="/planets">Planets</Link>
             </li>
+
+            <li>
+              <Link to="/people">People</Link>
+            </li>
           </ul>
         </div>
       </div>
