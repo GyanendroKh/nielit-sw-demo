@@ -1,6 +1,8 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigation } from 'react-router-dom';
 
 export const RootPage = () => {
+  const navigation = useNavigation();
+
   return (
     <div className="root-container">
       {/* Side Bar */}
@@ -23,7 +25,20 @@ export const RootPage = () => {
 
       {/* Main Content */}
       <div className="main-content">
-        <Outlet />
+        {navigation.state === 'loading' ? (
+          <div
+            style={{
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
+            <span className="loader"></span>
+          </div>
+        ) : (
+          <Outlet />
+        )}
       </div>
     </div>
   );
