@@ -1,7 +1,6 @@
-import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 
-export function PlanetList() {
+export function PlanetListPage() {
   const planets = useLoaderData();
 
   return (

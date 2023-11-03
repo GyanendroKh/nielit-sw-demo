@@ -1,12 +1,7 @@
-import {
-  RouterProvider,
-  createBrowserRouter,
-  Link,
-  Outlet
-} from 'react-router-dom';
-import { PlanetList } from './PlanetList';
-import { Planet } from './Planet';
-import { RootPage } from './RootPage';
+import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom';
+import { PlanetListPage } from './pages/planets/PlanetList';
+import { PlanetDetailsPage } from './pages/planets/PlanetDetails';
+import { RootPage } from './pages/RootPage';
 
 const router = createBrowserRouter([
   {
@@ -19,12 +14,12 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <PlanetList />,
+            element: <PlanetListPage />,
             loader: planetListLoader
           },
           {
             path: ':id',
-            element: <Planet />,
+            element: <PlanetDetailsPage />,
             loader: planetIdLoader
           }
         ]
