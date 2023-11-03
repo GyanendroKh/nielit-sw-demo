@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigation } from 'react-router-dom';
+import { Link, NavLink, Outlet, useNavigation } from 'react-router-dom';
 
 export const RootPage = () => {
   const navigation = useNavigation();
@@ -13,11 +13,21 @@ export const RootPage = () => {
         <div className="sidebar-content">
           <ul>
             <li>
-              <Link to="/planets">Planets</Link>
+              <NavLink
+                to="/planets"
+                className={({ isActive }) => (isActive ? 'active' : '')}
+              >
+                Planets
+              </NavLink>
             </li>
 
             <li>
-              <Link to="/people">People</Link>
+              <NavLink
+                to="/people"
+                className={({ isActive }) => (isActive ? 'active' : '')}
+              >
+                People
+              </NavLink>
             </li>
           </ul>
         </div>
