@@ -4,6 +4,7 @@ import { PlanetDetailsPage } from './pages/planets/PlanetDetails';
 import { RootPage } from './pages/RootPage';
 import { PeopleDetailsPage } from './pages/people/PeopleDetails';
 import { PeopleListPage } from './pages/people/PeopleList';
+import { getPageNoFromUrl } from './utils';
 
 const router = createBrowserRouter([
   {
@@ -50,8 +51,12 @@ export default function App() {
   return <RouterProvider router={router} />;
 }
 
-function planetListLoader() {
-  return fetch('https://swapi.dev/api/planets/').then(res => res.json());
+function planetListLoader(opts) {
+  const pageNo = getPageNoFromUrl(opts.request.url) || 1;
+
+  return fetch(`https://swapi.dev/api/planets/?page=${pageNo}`).then(res =>
+    res.json()
+  );
 }
 
 function planetIdLoader({ params }) {
