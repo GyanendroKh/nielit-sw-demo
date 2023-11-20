@@ -5,6 +5,15 @@ import { RootPage } from './pages/RootPage';
 import { PeopleDetailsPage } from './pages/people/PeopleDetails';
 import { PeopleListPage } from './pages/people/PeopleList';
 import { getPageNoFromUrl } from './utils';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 0
+    }
+  }
+});
 
 const router = createBrowserRouter([
   {
@@ -33,8 +42,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <PeopleListPage />,
-            loader: peopleListLoader
+            element: <PeopleListPage />
           },
           {
             path: ':id',
@@ -48,7 +56,11 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
 
 function planetListLoader(opts) {
