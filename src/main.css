@@ -33,8 +33,21 @@ body,
   list-style-type: none;
 }
 
+.sidebar-content ul li {
+  margin-bottom: 2px;
+}
+
+.sidebar-content ul li a {
+  color: black;
+  text-decoration: none;
+  display: block;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
 .sidebar-content ul li a.active {
-  background-color: rgb(66, 208, 255);
+  background-color: rgb(0, 120, 160);
+  color: white;
 }
 
 .main-content {
