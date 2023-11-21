@@ -1,10 +1,49 @@
-import { useLoaderData } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
 
 export function PeopleDetailsPage() {
-  const data = useLoaderData();
+  const { id = '1' } = useParams();
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ['people/details', id],
+    queryFn: async () => {
+      const res = await fetch(`https://swapi.dev/api/people/${id}`);
 
-  if (!data) {
-    return null;
+      if (res.ok) {
+        return res.json();
+      }
+
+      return Promise.reject('Could not fetch data');
+    }
+  });
+
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        <span className="loader"></span>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div
+        style={{
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        <p>{String(error)}</p>
+      </div>
+    );
   }
 
   return (

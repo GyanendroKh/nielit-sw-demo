@@ -46,8 +46,7 @@ const router = createBrowserRouter([
           },
           {
             path: ':id',
-            element: <PeopleDetailsPage />,
-            loader: peopleIdLoader
+            element: <PeopleDetailsPage />
           }
         ]
       }
