@@ -1,11 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
+import { getPageNoFromUrl } from '../../utils';
 
 export function PeopleListPage() {
+  const [searchParam] = useSearchParams();
+  const pageNo = searchParam.get('page') || '1';
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ['people/list'],
+    queryKey: ['people/list', pageNo],
     queryFn: async () => {
-      const res = await fetch('https://swapi.dev/api/people/');
+      const res = await fetch(`https://swapi.dev/api/people/?page=${pageNo}`);
 
       if (res.ok) {
         return res.json();
@@ -14,6 +17,8 @@ export function PeopleListPage() {
       return Promise.reject('Could not fetch data');
     }
   });
+  const prevPage = getPageNoFromUrl(data?.previous);
+  const nextPage = getPageNoFromUrl(data?.next);
 
   if (isLoading) {
     return (
@@ -48,7 +53,7 @@ export function PeopleListPage() {
   return (
     <div>
       <h1>People List</h1>
-      <ol>
+      <ul>
         {data?.results?.map(p => {
           const id = p.url
             .replace('https://swapi.dev/api/people/', '')
@@ -56,11 +61,20 @@ export function PeopleListPage() {
 
           return (
             <li key={id}>
-              <Link to={`/people/${id}`}>{p.name}</Link>
+              <Link to={`/people/${id}`}>
+                {id} - {p.name}
+              </Link>
             </li>
           );
         })}
-      </ol>
+      </ul>
+      <div>
+        {prevPage && <Link to={`?page=${prevPage}`}>Prev</Link>}
+
+        <br />
+
+        {nextPage && <Link to={`?page=${nextPage}`}>Next</Link>}
+      </div>
     </div>
   );
 }
