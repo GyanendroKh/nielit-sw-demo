@@ -26,8 +26,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <PlanetListPage />,
-            loader: planetListLoader
+            element: <PlanetListPage />
           },
           {
             path: ':id',
