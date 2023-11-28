@@ -6,6 +6,7 @@ import { PeopleDetailsPage } from './pages/people/PeopleDetails';
 import { PeopleListPage } from './pages/people/PeopleList';
 import { getPageNoFromUrl } from './utils';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { StarShipsList } from './pages/starships/StarShipsList';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -46,6 +47,16 @@ const router = createBrowserRouter([
           {
             path: ':id',
             element: <PeopleDetailsPage />
+          }
+        ]
+      },
+      {
+        path: 'starships',
+        element: <Outlet />,
+        children: [
+          {
+            index: true,
+            element: <StarShipsList />
           }
         ]
       }

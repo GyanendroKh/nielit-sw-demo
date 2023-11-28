@@ -29,6 +29,15 @@ export const RootPage = () => {
                 People
               </NavLink>
             </li>
+
+            <li>
+              <NavLink
+                to="/starships"
+                className={({ isActive }) => (isActive ? 'active' : '')}
+              >
+                Star Ships
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>
